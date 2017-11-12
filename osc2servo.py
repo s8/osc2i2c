@@ -62,18 +62,42 @@ def fader_01(path, tags, args, source):
     pwm.set_pwm(0,0,pwm_value)
     print "Fader Value:", pwm_value
 
-# toggle handler
-def toggle_01(path, tags, args, source):
-    state=int(args[0])
-    if state == 1:
-        pwm.set_pwm(0,0,servo_max)
-    else:
-        pwm.set_pwm(0,0,servo_min)
-    print "TOGGLE_01:", state
+def fader_02(path, tags, args, source):
+    #value = int(args[1])
+    pwm_value = int(args[0]*(servo_max-servo_min) + servo_min)
+    pwm.set_pwm(1,0,pwm_value)
+    print "Fader Value:", pwm_value
+
+def fader_03(path, tags, args, source):
+    #value = int(args[1])
+    pwm_value = int(args[0]*(servo_max-servo_min) + servo_min)
+    pwm.set_pwm(2,0,pwm_value)
+    print "Fader Value:", pwm_value
+
+def fader_04(path, tags, args, source):
+    #value = int(args[1])
+    pwm_value = int(args[0]*(servo_max-servo_min) + servo_min)
+    pwm.set_pwm(3,0,pwm_value)
+    print "Fader Value:", pwm_value
 
 
-server.addMsgHandler("/1/toggle1", toggle_01)
+
+# # toggle handler
+# def toggle_01(path, tags, args, source):
+#     state=int(args[0])
+#     if state == 1:
+#         pwm.set_pwm(0,0,servo_max)
+#     else:
+#         pwm.set_pwm(0,0,servo_min)
+#     print "TOGGLE_01:", state
+
+
+# server.addMsgHandler("/1/toggle1", toggle_01)
 server.addMsgHandler("/1/fader1", fader_01)
+server.addMsgHandler("/1/fader2", fader_02)
+server.addMsgHandler("/1/fader3", fader_03)
+server.addMsgHandler("/1/fader4", fader_04)
+
 while True:
     server.handle_request()
 
