@@ -27,6 +27,10 @@ servo_max = 3095    # Max pulse length out of 4096
 servo_min = 135
 servo_max = 630
 
+# DC motors
+servo_min = 0
+servo_max = 4095
+
 # Helper function to make setting a servo pulse width simpler.
 
 def set_servo_pulse(channel, pulse):
@@ -40,7 +44,7 @@ def set_servo_pulse(channel, pulse):
     pwm.set_pwm(channel, 0, pulse)
 
 # Set frequencey to 60hz, good for servos
-pwm.set_pwm_freq(60)
+pwm.set_pwm_freq(6)
 
 
 
@@ -55,7 +59,18 @@ def handle_timeout(self):
 
 server.handle_timeout = types.MethodType(handle_timeout, server)
 
-# fader handler
+# fader handlers
+
+def fader_callback(path, tags, args, source):
+    #fader = ' '.join(path.split("/"))
+    fader = path.split("/")[3]
+    #print ("Now do something with fader ", fader, " ", args)
+    pwm_value = int(args[0]*(servo_max-servo_min)+servo_min)
+    print "Fader ", fader, " value: ", pwm_value 
+    pwm.set_pwm(int(fader), 0, pwm_value)
+
+
+
 def fader_01(path, tags, args, source):
     #value = int(args[1])
     pwm_value = int(args[0]*(servo_max-servo_min) + servo_min)
@@ -80,6 +95,12 @@ def fader_04(path, tags, args, source):
     pwm.set_pwm(3,0,pwm_value)
     print "Fader Value:", pwm_value
 
+def fader_05(path, tags, args, source):
+    #value = int(args[1])
+    pwm_freq_value = int(1000*args[0]+1)
+    print pwm_freq_value
+    pwm.set_pwm_freq(pwm_freq_value)
+
 
 
 # # toggle handler
@@ -93,10 +114,16 @@ def fader_04(path, tags, args, source):
 
 
 # server.addMsgHandler("/1/toggle1", toggle_01)
-server.addMsgHandler("/1/fader1", fader_01)
-server.addMsgHandler("/1/fader2", fader_02)
-server.addMsgHandler("/1/fader3", fader_03)
-server.addMsgHandler("/1/fader4", fader_04)
+#server.addMsgHandler("/1/fader1", fader_01)
+#server.addMsgHandler("/1/fader2", fader_02)
+#server.addMsgHandler("/1/fader3", fader_03)
+#server.addMsgHandler("/1/fader4", fader_04)
+#server.addMsgHandler("/1/fader5", fader_05)
+
+for i in range(1,33):
+    server.addMsgHandler( "/1/multifader1/"+str(i), fader_callback)
+    server.addMsgHandler( "/1/multifader2/"+str(i), fader_callback)
+
 
 while True:
     server.handle_request()
