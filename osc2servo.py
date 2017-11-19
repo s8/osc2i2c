@@ -17,15 +17,15 @@ import RPi.GPIO as GPIO
 #logging.basicConfig*level=logging.DEBUG)
 
 # Initialize the PCA9685 using the default address (0x40)
-pwm = Adafruit_PCA9685.PCA9685()
+pwm = Adafruit_PCA9685.PCA9685(0x41)
 
 # Configure min and max servo pulse lengths
-servo_min = 100     # Min pulse length out of 4096
-servo_max = 3095    # Max pulse length out of 4096
+#servo_min = 100     # Min pulse length out of 4096
+#servo_max = 3095    # Max pulse length out of 4096
 
 # PowerHD HD-1440A servo motor
-servo_min = 135
-servo_max = 630
+#servo_min = 135
+#servo_max = 630
 
 # DC motors
 servo_min = 0
@@ -44,7 +44,7 @@ def set_servo_pulse(channel, pulse):
     pwm.set_pwm(channel, 0, pulse)
 
 # Set frequencey to 60hz, good for servos
-pwm.set_pwm_freq(6)
+pwm.set_pwm_freq(60)
 
 
 
@@ -78,7 +78,7 @@ def fader_01(path, tags, args, source):
     print "Fader Value:", pwm_value
 
 def fader_02(path, tags, args, source):
-    #value = int(args[1])
+    #value = int(args[1]) t
     pwm_value = int(args[0]*(servo_max-servo_min) + servo_min)
     pwm.set_pwm(1,0,pwm_value)
     print "Fader Value:", pwm_value
