@@ -47,7 +47,7 @@ for p in pwm:
 
 
 # SETTING UP OSC Server and message handlers
-server = OSCServer (("192.168.0.50",57120))
+server = OSCServer (("192.168.0.101",57120))
 client = OSCClient()
 
 def handle_timeout(self):
