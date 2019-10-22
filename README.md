@@ -3,12 +3,14 @@
 
 configuring Pi:
 
-1. install i2c packages
+1. Install i2c packages
+```
 sudo apt-get install python-smbus
 sudo apt-get install i2c-tools
+```
 
 
-If you are using Raspian Linux 3.18 or later you need to go into the raspberry pi config utility and enable I2C.
+2. Enable I2C.
 
 ```
 sudo raspi-config
