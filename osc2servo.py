@@ -18,10 +18,10 @@ import RPi.GPIO as GPIO
 
 # Initialize the PCA9685 using the default address (0x40)
 pwm = [
+        Adafruit_PCA9685.PCA9685(0x40),
         Adafruit_PCA9685.PCA9685(0x41),
         Adafruit_PCA9685.PCA9685(0x42),
-        Adafruit_PCA9685.PCA9685(0x43),
-        Adafruit_PCA9685.PCA9685(0x44)
+        Adafruit_PCA9685.PCA9685(0x43)
         ]
 
 # DC motors
@@ -44,10 +44,12 @@ def set_servo_pulse(channel, pulse):
 for p in pwm:
     p.set_pwm_freq(60)
 
-
-
 # SETTING UP OSC Server and message handlers
-server = OSCServer (("192.168.0.101",57120))
+# server = OSCServer (("192.168.1.2",57120))
+# this has to be the address of Pi itself
+# weirdly enough two sets of brackets are needed
+# the port here has to match "outgoing" port on the controller app
+server = OSCServer(("192.168.1.6",8000))
 client = OSCClient()
 
 def handle_timeout(self):
@@ -73,10 +75,14 @@ def fader_callback(path, tags, args, source):
     
     print "board: ", fader_i2c[0], ", fader: ", fader_i2c[1], ", value: ", fader_i2c[2]
 
-for i in range(1,33):
-    server.addMsgHandler( "/1/multifader1/"+str(i), fader_callback)
-    server.addMsgHandler( "/1/multifader2/"+str(i), fader_callback)
+# origignal layout with 2 x32 multifaders
+#for i in range(1,33):
+#    server.addMsgHandler( "/1/multifader1/"+str(i), fader_callback)
+#    server.addMsgHandler( "/1/multifader2/"+str(i), fader_callback)
 
+for i in range(0,63):
+    #server.addMsgHandler( "/1/multifader1/"+str(i), fader_callback)
+    server.addMsgHandler( "/1/multifader2/"+str(i), fader_callback)
 
 while True:
     server.handle_request()
