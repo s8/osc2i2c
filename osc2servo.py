@@ -63,29 +63,13 @@ server.handle_timeout = types.MethodType(handle_timeout, server)
 
 def fader_callback(path, tags, args, source):
 
-    # store the name of the TouchOSC interface element
-    # multifader = path.split("/")[2]
-    #
-    # fader_osc = int(path.split("/")[3]) - 1
-    #
-    # pwm_value = int(args[0]*(servo_max-servo_min)+servo_min)
-    #
-    # board_i2c = [fader_osc >> 4, fader_osc % 16, pwm_value];
-
     board = (int(path.split("/")[3]) - 1) >> 4
 
-    motor = (int(path.split("/")[3]) - 1) % 16
+    motor = 16 - ((int(path.split("/")[3]) - 1) % 16)
 
     value = int(args[0]*(servo_max-servo_min)+servo_min)
 
-    #if multifader == "multifader2":
-    #    board_i2c[0] += 2
-
-    # pwm[board_i2c[0]].set_pwm(board_i2c[1],0,board_i2c[2])
-
     pwm[board].set_pwm(motor,0,value)
-
-    # print "board: ", board_i2c[0], ", fader: ", board_i2c[1], ", value: ", board_i2c[2]
 
     print "board: ", board, ", motor: ", motor, ", value: ", value
 
