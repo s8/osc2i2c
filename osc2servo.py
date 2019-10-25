@@ -51,7 +51,8 @@ for p in pwm:
 # this has to be the address of Pi itself
 # weirdly enough two sets of brackets are needed
 # the port here has to match "outgoing" port on the controller app
-server = OSCServer(("192.168.1.6",8000))
+# server = OSCServer(("192.168.1.6",8000))
+server = OSCServer(("158.223.29.135",8000))
 client = OSCClient()
 
 def handle_timeout(self):
@@ -64,9 +65,7 @@ server.handle_timeout = types.MethodType(handle_timeout, server)
 def fader_callback(path, tags, args, source):
 
     board = (int(path.split("/")[3]) - 1) >> 4
-
     motor = 16 - ((int(path.split("/")[3]) - 1) % 16)
-
     value = int(args[0]*(servo_max-servo_min)+servo_min)
 
     pwm[board].set_pwm(motor,0,value)
@@ -74,7 +73,6 @@ def fader_callback(path, tags, args, source):
     print "board: ", board, ", motor: ", motor, ", value: ", value
 
 for i in range(0,95):
-    # print 'registering callback for fader: ', i
     server.addMsgHandler( "/multifader/multifader/"+str(i), fader_callback)
 
 while True:
