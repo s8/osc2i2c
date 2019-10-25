@@ -65,9 +65,9 @@ server.handle_timeout = types.MethodType(handle_timeout, server)
 def fader_callback(path, tags, args, source):
 
     print path
-    print tags
+    # print tags
     print args
-    print '-----'
+    # print '-----'
     board = (int(path.split("/")[3]) - 1) >> 4
     motor = 16 - ((int(path.split("/")[3]) - 1) % 16)
     value = int(args[0]*(servo_max-servo_min)+servo_min)
@@ -77,7 +77,8 @@ def fader_callback(path, tags, args, source):
     print "board: ", board, ", motor: ", motor, ", value: ", value
 
 for i in range(0,95):
-    server.addMsgHandler( "/1/1/"+str(i), fader_callback)
+    server.addMsgHandler( "/motor/"+str(i), fader_callback)
+    # server.addMsgHandler( "/1/1/"+str(i), fader_callback)
     # server.addMsgHandler( "/multifader/multifader/"+str(i), fader_callback)
 
 while True:
