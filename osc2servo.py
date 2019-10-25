@@ -68,8 +68,8 @@ def fader_callback(path, tags, args, source):
     print path, args
 
     motor = int(path.split("/")[2])
-    board = 6 - (motor >> 6)
-    channel = 15 - (motor % 16)
+    board = int(motor / 16)
+    channel = inr(motor % 16)
 
     # board = (int(path.split("/")[3]) - 1) >> 4
     # motor = 16 - ((int(path.split("/")[3]) - 1) % 16)
