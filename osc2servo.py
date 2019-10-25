@@ -83,11 +83,13 @@ def fader_callback(path, tags, args, source):
 
     # print "board: ", board, ", channel: ", channel, ", value: ", value
 
-for i in range(0,96):
+# for i in range(0,96):
     # server.addMsgHandler( "/motor/"+str(i), fader_callback)
-    server.addMsgHandler( "/motor/"+str(i), fader_callback)
+    # server.addMsgHandler( "/motor/"+str(i), fader_callback)
     # server.addMsgHandler( "/1/1/"+str(i), fader_callback)
     # server.addMsgHandler( "/multifader/multifader/"+str(i), fader_callback)
+
+server.addMsgHandler( "/motor/", fader_callback)
 
 while True:
     server.handle_request()
