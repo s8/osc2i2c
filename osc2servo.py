@@ -67,13 +67,15 @@ def fader_callback(path, tags, args, source):
     print '---'
     print path, args
 
-    motor = int(path.split("/")[2])
+    # motor = int(path.split("/")[2])
+    # board = 5 - int(motor / 16)
+    # channel = int(motor % 16)
+    # value = int(args[0]*(servo_max-servo_min)+servo_min)
+
+    motor = args[0]
     board = 5 - int(motor / 16)
     channel = int(motor % 16)
-
-    # board = (int(path.split("/")[3]) - 1) >> 4
-    # motor = 16 - ((int(path.split("/")[3]) - 1) % 16)
-    value = int(args[0]*(servo_max-servo_min)+servo_min)
+    value = int(args[1]*(servo_max-servo_min)+servo_min)
 
     pwm[board].set_pwm(channel,0,value)
 
@@ -82,7 +84,8 @@ def fader_callback(path, tags, args, source):
     # print "board: ", board, ", channel: ", channel, ", value: ", value
 
 for i in range(0,96):
-    server.addMsgHandler( "/motor/"+str(i), fader_callback)
+    # server.addMsgHandler( "/motor/"+str(i), fader_callback)
+    server.addMsgHandler( "/motor"+str(i), fader_callback)
     # server.addMsgHandler( "/1/1/"+str(i), fader_callback)
     # server.addMsgHandler( "/multifader/multifader/"+str(i), fader_callback)
 
