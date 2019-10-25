@@ -64,17 +64,22 @@ server.handle_timeout = types.MethodType(handle_timeout, server)
 
 def fader_callback(path, tags, args, source):
 
-    print path
-    # print tags
-    print args
-    # print '-----'
-    board = (int(path.split("/")[3]) - 1) >> 4
-    motor = 16 - ((int(path.split("/")[3]) - 1) % 16)
-    value = int(args[0]*(servo_max-servo_min)+servo_min)
+    print '---'
+    print path, args
 
-    pwm[board].set_pwm(motor,0,value)
+    motor = int(path.split("/")[1])
+    # board = (int(path.split("/")[1]) - 1) >> 4
+    # channel = 16 - ((int(path.split("/")[3]) - 1) % 16)
 
-    print "board: ", board, ", motor: ", motor, ", value: ", value
+    # board = (int(path.split("/")[3]) - 1) >> 4
+    # motor = 16 - ((int(path.split("/")[3]) - 1) % 16)
+    # value = int(args[0]*(servo_max-servo_min)+servo_min)
+
+    # pwm[board].set_pwm(motor,0,value)
+
+    print motor
+
+    print "board: ", board, ", channel: ", channel, ", value: ", value
 
 for i in range(0,95):
     server.addMsgHandler( "/motor/"+str(i), fader_callback)
