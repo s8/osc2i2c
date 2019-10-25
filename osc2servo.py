@@ -77,9 +77,9 @@ def fader_callback(path, tags, args, source):
 
     # pwm[board].set_pwm(motor,0,value)
 
-    print motor
+    print "motor: ", motor
 
-    print "board: ", board, ", channel: ", channel, ", value: ", value
+    # print "board: ", board, ", channel: ", channel, ", value: ", value
 
 for i in range(0,95):
     server.addMsgHandler( "/motor/"+str(i), fader_callback)
