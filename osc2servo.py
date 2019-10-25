@@ -68,7 +68,7 @@ def fader_callback(path, tags, args, source):
     print path, args
 
     motor = int(path.split("/")[2])
-    # board = (int(path.split("/")[1]) - 1) >> 4
+    board = motor >> 4
     # channel = 16 - ((int(path.split("/")[3]) - 1) % 16)
 
     # board = (int(path.split("/")[3]) - 1) >> 4
@@ -77,7 +77,7 @@ def fader_callback(path, tags, args, source):
 
     # pwm[board].set_pwm(motor,0,value)
 
-    print "motor: ", motor
+    print "board: ", board, "motor: ", motor
 
     # print "board: ", board, ", channel: ", channel, ", value: ", value
 
