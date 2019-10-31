@@ -22,3 +22,11 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo reboot
 ```
+
+3. Install Adafruit PCA9685 libraries
+```
+sudo apt-get install git build-essential python-dev
+cd ~
+git clone https://github.com/adafruit/Adafruit_Python_PCA9685.git cd Adafruit_Python_PCA9685
+sudo python setup.py install
+```
