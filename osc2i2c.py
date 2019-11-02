@@ -28,7 +28,7 @@ PI_IP = "192.168.2.2"
 # Setting up Arduino on a serial port
 #
 
-ser = serial.Serial('/dev/ttyACM0',9600)
+ser = serial.Serial('/dev/ttyACM0',115200)
 pedal_value = 0.0
 
 
@@ -95,7 +95,8 @@ def read_pedal():
         except ValueError:
             print ('serial value error')
     else:
-        return pedal_value;
+        print ('no values')
+        # return pedal_value;
 
 
 #
