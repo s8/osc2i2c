@@ -80,7 +80,7 @@ for p in pwm:
 #
 
 def read_pedal():
-    # global pedal_value
+    global pedal_value
 
     if (ser.in_waiting > 0):
         line = ser.readline()
@@ -89,14 +89,14 @@ def read_pedal():
             if line.strip():
                 value = int(line.strip()) - 895
                 value = min(1.0, float(value)/130)
-                # pedal_value = value
-                return (value)
+                pedal_value = value
+                # return (value)
                 # print ('pedal value:', pedal_value)
         except ValueError:
             print ('serial value error')
-    # else:
-    #     print ('no values')
-        # return pedal_value;
+    else:
+        print ('no values')
+        return pedal_value;
 
 
 #
@@ -133,9 +133,9 @@ def bundle_callback(path, tags, args, source):
 
     global pedal_value
 
-    # pedal_update = read_pedal()
-    # if pedal_update:
-         # pedal_value = pedal_update
+    pedal_update = read_pedal()
+    if pedal_update:
+         pedal_value = pedal_update
     motor = args[0]
     board = 5 - int(motor / 16)
     channel = int(motor % 16)
@@ -170,7 +170,7 @@ server.addMsgHandler( "/zero/", zero_callback)
 #
 
 while True:
-    pedal_value = read_pedal()
+    # pedal_value = read_pedal()
     server.handle_request()
 
 #
