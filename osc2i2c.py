@@ -89,7 +89,8 @@ def read_pedal():
             if line.strip():
                 value = int(line.strip()) - 895
                 value = min(1.0, float(value)/130)
-                return (value)
+                pedal_value = value
+                # return (value)
         except ValueError:
             print ('serial value error')
     else:
@@ -132,7 +133,7 @@ def bundle_callback(path, tags, args, source):
 
     # pedal_update = read_pedal()
     # if pedal_update:
-        # pedal_value = pedal_update
+         # pedal_value = pedal_update
     motor = args[0]
     board = 5 - int(motor / 16)
     channel = int(motor % 16)
