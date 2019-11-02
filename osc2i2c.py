@@ -13,7 +13,8 @@ import types
 import os
 import RPi.GPIO as GPIO
 
-PI_IP = "169.254.60.230"
+#PI_IP = "169.254.60.230"
+PI_IP = "192.168.2.2"
 
 #
 # Uncomment to enable debug output
