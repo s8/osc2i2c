@@ -28,7 +28,7 @@ PI_IP = "192.168.2.2"
 # Setting up Arduino on a serial port
 #
 
-ser = serial.Serial('/dev/ttyACM0',115200)
+ser = serial.Serial('/dev/ttyACM0',9600)
 pedal_value = 0.0
 
 
@@ -90,13 +90,13 @@ def read_pedal():
                 value = int(line.strip()) - 895
                 value = min(1.0, float(value)/130)
                 pedal_value = value
-                # return (value)
-                print ('pedal value:', pedal_value)
+                return (value)
+                # print ('pedal value:', pedal_value)
         except ValueError:
             print ('serial value error')
     else:
-        print ('no values')
-        # return pedal_value;
+        # print ('no values')
+        return pedal_value;
 
 
 #
@@ -133,9 +133,9 @@ def bundle_callback(path, tags, args, source):
 
     global pedal_value
 
-    # pedal_update = read_pedal()
-    # if pedal_update:
-         # pedal_value = pedal_update
+    pedal_update = read_pedal()
+    if pedal_update:
+         pedal_value = pedal_update
     motor = args[0]
     board = 5 - int(motor / 16)
     channel = int(motor % 16)
@@ -170,7 +170,7 @@ server.addMsgHandler( "/zero/", zero_callback)
 #
 
 while True:
-    read_pedal()
+    # read_pedal()
     server.handle_request()
 
 #
