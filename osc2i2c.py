@@ -90,7 +90,7 @@ def read_pedal():
                 value = int(line.strip()) - 895
                 value = min(1.0, float(value)/130)
                 pedal_value = value
-                return (value)
+                # return (value)
                 # print ('pedal value:', pedal_value)
         except ValueError:
             print ('serial value error')
@@ -133,9 +133,9 @@ def bundle_callback(path, tags, args, source):
 
     global pedal_value
 
-    pedal_update = read_pedal()
-    if pedal_update:
-         pedal_value = pedal_update
+    # pedal_update = read_pedal()
+    # if pedal_update:
+         # pedal_value = pedal_update
     motor = args[0]
     board = 5 - int(motor / 16)
     channel = int(motor % 16)
@@ -170,7 +170,7 @@ server.addMsgHandler( "/zero/", zero_callback)
 #
 
 while True:
-    # read_pedal()
+    read_pedal()
     server.handle_request()
 
 #
