@@ -81,7 +81,7 @@ for p in pwm:
 
 def read_pedal():
     global pedal_value
-    
+
     if (ser.in_waiting > 0):
         line = ser.readline()
 
@@ -127,12 +127,12 @@ server.handle_timeout = types.MethodType(handle_timeout, server)
 #
 
 def bundle_callback(path, tags, args, source):
-    
-    global pedal_value 
-    
-    pedal_update = read_pedal()
-    if pedal_update:
-        pedal_value = pedal_update
+
+    global pedal_value
+
+    # pedal_update = read_pedal()
+    # if pedal_update:
+        # pedal_value = pedal_update
     motor = args[0]
     board = 5 - int(motor / 16)
     channel = int(motor % 16)
@@ -167,6 +167,7 @@ server.addMsgHandler( "/zero/", zero_callback)
 #
 
 while True:
+    read_pedal()
     server.handle_request()
 
 #
