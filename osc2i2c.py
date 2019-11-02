@@ -80,7 +80,7 @@ for p in pwm:
 #
 
 def read_pedal():
-    global pedal_value
+    # global pedal_value
 
     if (ser.in_waiting > 0):
         line = ser.readline()
@@ -94,9 +94,9 @@ def read_pedal():
                 # print ('pedal value:', pedal_value)
         except ValueError:
             print ('serial value error')
-    else:
-        # print ('no values')
-        return pedal_value;
+    # else:
+    #     print ('no values')
+        # return pedal_value;
 
 
 #
