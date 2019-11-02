@@ -89,8 +89,8 @@ def read_pedal():
             if line.strip():
                 value = int(line.strip()) - 895
                 value = min(1.0, float(value)/130)
-                pedal_value = value
-                # return (value)
+                # pedal_value = value
+                return (value)
                 # print ('pedal value:', pedal_value)
         except ValueError:
             print ('serial value error')
@@ -170,7 +170,7 @@ server.addMsgHandler( "/zero/", zero_callback)
 #
 
 while True:
-    read_pedal()
+    pedal_value = read_pedal()
     server.handle_request()
 
 #
