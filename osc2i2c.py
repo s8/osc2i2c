@@ -91,6 +91,7 @@ def read_pedal():
                 value = min(1.0, float(value)/130)
                 pedal_value = value
                 # return (value)
+                print ('pedal value:', pedal_value)
         except ValueError:
             print ('serial value error')
     else:
