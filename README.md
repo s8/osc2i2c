@@ -52,9 +52,9 @@ Start up procedure.
         |
         | USB
         V
-   +----+----+     +-------+
-   | Arduino | --> | Pedal |
-   +---------+     +-------+
+   +----+----+  header pins - TRS jack   +-------+
+   | Arduino | ------------------------> | Pedal |
+   +---------+                           +-------+
 ```
 
 2. on the client machine (the one running max/msp)
