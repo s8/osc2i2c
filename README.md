@@ -30,3 +30,40 @@ cd ~
 git clone https://github.com/adafruit/Adafruit_Python_PCA9685.git cd Adafruit_Python_PCA9685
 sudo python setup.py install
 ```
+
+
+
+Start up procedure.
+
+1. Hook up diagram
+
+
+  +--------+               +--------+
+  | 5V 10W |               | 5V 40W |
+  | power  |               | power  |
+  +--------+               +--------+
+      |                        |
+      | usb-c                  | barrel jack
+      |                        |
+      V                        V
++==============+  i2c   +--------------+      +--------------+      +--------------+
+| Raspberry Pi | -----> | PCA9685  (1) | -->  | PCA9685  (2) | ...  | PCA9685  (6) |
++=======+======+        +--------------+      +--------------+      +--------------+
+        |
+        | USB
+        V
+   +----+----+     +-------+
+   | Arduino | --> | Pedal |
+   +---------+     +-------+
+
+
+2. on the client machine (the one running max/msp)
+    ssh pi@raspberrypi.local
+
+3. once logged into the raspberry:
+    cd osc2i2c
+    sudo python osc2i2c.py
+
+
+
+
