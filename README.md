@@ -37,7 +37,7 @@ Start up procedure.
 
 1. Hook up diagram
 
-
+```
   +--------+               +--------+
   | 5V 10W |               | 5V 40W |
   | power  |               | power  |
@@ -55,7 +55,7 @@ Start up procedure.
    +----+----+     +-------+
    | Arduino | --> | Pedal |
    +---------+     +-------+
-
+```
 
 2. on the client machine (the one running max/msp)
     ssh pi@raspberrypi.local
